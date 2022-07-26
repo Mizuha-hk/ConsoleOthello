@@ -26,22 +26,23 @@ namespace ConsoleApp1
             Console.WriteLine("Player2.\n名前を入力してください");
             names[1] = Console.ReadLine();
             players[0] = new Player(names[0]);
-            players[1] = new Player(names[1]);
+            players[1] = new Player(names[1]);  //プレイヤーのインスタンスを作成
 
             //盤面初期化
             Bord bord = new Bord();
             bord.def_set();
             
             int f = 0;
-            //先攻後攻を決める
+            //どちらが先攻を決める
             Wfirst(f);
 
             //ゲーム進行部
             while(bord.end == false)
             {
-                int a = 0;  //行指定
-                int n = 0;  //列指定
-                bool tf = false;
+                int a = 0;  //行指定用変数
+                int n = 0;  //列指定用変数
+                bool tf = false;  //putメソッド用の配置し、ひっくり返しが完了した場合trueにする変数
+                bool putable = false;   //sertchメソッド用の配置可能なマスが存在する場合trueにする変数
 
                 //最新の盤面と誰のターンかを表示
                 bord.display();
@@ -58,27 +59,59 @@ namespace ConsoleApp1
                 //駒の配置場所を決めてもらう
                 while (true)
                 {
-
-                    bool error = true; //エラーが発生する場合はtrueとし、正常に動作した場合にfalseを代入しループを抜ける
-                    while (error == true)
+                    bord.sertch(ref f,ref putable);
+                    if (putable == true)
                     {
-                        try
+                        players[f % 2].disable = false; //設置可能である
+
+                        bool error = true; //エラーが発生する場合はtrueとし、正常に動作した場合にfalseを代入しループを抜ける
+                        while (error == true)
                         {
-                            players[f % 2].point(ref a, ref n);
-                            error = false;
+                            try
+                            {
+                                players[f % 2].point(ref a, ref n);
+                                error = false;
+                            }
+                            catch (System.FormatException)
+                            {
+                                Console.WriteLine("不正な値です\n");
+                            }
                         }
-                        catch (System.FormatException)
+                        bord.put(ref a, ref n, ref f, ref tf);
+                        if (tf == true)
                         {
-                            Console.WriteLine("不正な値です\n");
+                            break;      //指定したマスが設置可能で、設置とひっくり返しが完了したときtrueとし、ループを抜けてターンチェンジ
                         }
                     }
-                    bord.put(ref a, ref n, ref f,ref tf);
-                    if (tf == true)
+                    else
                     {
+                        players[f % 2].disable = true;  //設置不可である→ループを抜けてターンチェンジ
                         break;
                     }
                 }
-                f++;
+                if (players[0].disable == true && players[1].disable == true)
+                {
+                    bord.end = true;
+                }
+
+                f++;        //操作プレイヤーを入れ替える
+            }
+            f = 0;
+            bord.counter(ref f,ref players[f % 2].count);
+            f++;
+            bord.counter(ref f, ref players[f % 2].count); //プレイヤー１，２それぞれの駒の数を数える
+
+            if (players[0].count > players[1].count)
+            {
+                Console.WriteLine(names[0] + "さんの勝利");
+            }
+            else if(players[0].count < players[1].count)
+            {
+                Console.WriteLine(names[1] + "さんの勝利");
+            }
+            else
+            {
+                Console.WriteLine("引き分け");
             }
         }
     }

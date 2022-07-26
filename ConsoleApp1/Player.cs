@@ -9,13 +9,16 @@ namespace ConsoleApp1
     internal class Player
     {
         private string name;    //player name
-        private int count;      //プレイヤーの駒の数
+        public int count = 0;      //プレイヤーの駒の数
+        public bool disable = false;    //プレイヤーが駒を配置できない場合true
 
         //プレイヤー名入力(初期化)
         public Player(string name)
         {
             this.name = name;
         }
+
+        
 
         //駒を置く座標を指定するメソッド
         public void point(ref int a,ref int n)
@@ -26,7 +29,7 @@ namespace ConsoleApp1
             Console.Write("列");
             n = int.Parse(Console.ReadLine()) - 1;
         }
-
-
+        
+        
     }
 }

@@ -135,7 +135,7 @@ namespace ConsoleApp1
         {
             tf = false;
 
-            if (bord[a, n] == 2)        //前提としてマスが空白(0)でないといけない
+            if (bord[a, n] == 2)        //前提としてマスが空白(2)でないといけない
             {
                 for (int p = 0; p < 8; p++)
                     {
@@ -192,20 +192,24 @@ namespace ConsoleApp1
                     {
                         for (int i = 2; i <= 7; i++)
                         {
-                            this.I1 = a + (i * ip);
-                            this.J1 = n + (i * jp);
-                            if (bord[i1, j1] == f % 2)   //i個(i >= 2)先に自分の駒があるとき
+                            if (a + (i * ip) >= 0 && a + (i * ip) < 8 && n + (i * jp) >= 0 && n + (i * jp) < 8)
                             {
-                                for (int j = 0; j <= i; j++)
+                                //調べたい値が配列の定義範囲を超えない場合、実行
+                                this.I1 = a + (i * ip);
+                                this.J1 = n + (i * jp);
+                                if (bord[i1, j1] == f % 2)   //i個(i >= 2)先に自分の駒があるとき  ※個々の条件文要修正
                                 {
-                                    this.bord[a + (j * ip), n + (j * jp)] = f % 2;    //置きたい位置に設置、ひっくり返す
+                                    for (int j = 0; j <= i; j++)
+                                    {
+                                        this.bord[a + (j * ip), n + (j * jp)] = f % 2;    //置きたい位置に設置、ひっくり返す
+                                    }
+                                    tf = true;
+                                    break;
                                 }
-                                tf = true;      
-                                break;
-                            }
-                            else if(p == 7 && i == 7)
-                            {
-                                Console.WriteLine("そこには置けません");
+                                else if (p == 7 && i == 7)
+                                {
+                                    Console.WriteLine("そこには置けません");
+                                }
                             }
                         }
                     }
@@ -220,7 +224,94 @@ namespace ConsoleApp1
                 Console.WriteLine("そこには置けません");
             }                       
         }
-        
+
+        /*配置可能なマスが存在するかどうかの調査するメソッド*/
+        public void sertch(ref int f,ref bool putable)
+        {
+            putable = false;
+            for (int a = 0; a <= 7; a++)
+            {
+                for (int n = 0; n <= 7; n++)
+                {
+
+                    if (bord[a, n] == 2)        //前提としてマスが空白(2)でないといけない
+                    {
+                        for (int p = 0; p < 8; p++)
+                        {
+                            int ip = 0;
+                            int jp = 0;
+                            switch (p)
+                            {
+                                case 0:
+                                    ip = 0;
+                                    jp = 1;
+                                    break;
+                                case 1:
+                                    ip = 1;
+                                    jp = 1;
+                                    break;
+                                case 2:
+                                    ip = 1;
+                                    jp = 0;
+                                    break;
+                                case 3:
+                                    ip = 1;
+                                    jp = -1;
+                                    break;
+                                case 4:
+                                    ip = 0;
+                                    jp = -1;
+                                    break;
+                                case 5:
+                                    ip = -1;
+                                    jp = -1;
+                                    break;
+                                case 6:
+                                    ip = -1;
+                                    jp = 0;
+                                    break;
+                                case 7:
+                                    ip = -1;
+                                    jp = 1;
+                                    break;
+                            }           //putメソッドと同じ手法で配置可能か調査
+
+                            this.I1 = a + ip;
+                            this.J1 = n + jp;
+                            if (bord[i1, j1] == (f + 1) % 2)   //ｐの位置に相手の駒がある時 
+                            {
+                                for (int i = 2; i <= 7; i++)
+                                {
+                                    if (a + (i * ip) >= 0 && a + (i * ip) < 8 && n + (i * jp) >= 0 && n + (i * jp) < 8)
+                                    {
+                                        this.I1 = a + (i * ip);
+                                        this.J1 = n + (i * jp);
+                                        if (bord[i1, j1] == f % 2)   //i個(i >= 2)先に自分の駒があるとき
+                                        {
+                                            putable = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //駒数を数えるメソッド
+        public void counter(ref int f,ref int count)
+        {
+            for(int i = 0; i < 8; i++)
+            {
+                for(int j = 0; j < 8; j++)
+                {
+                    if (this.bord[i, j] == f % 2)
+                    {
+                        count++;
+                    }
+                }
+            }
+        }
 
     }
 }

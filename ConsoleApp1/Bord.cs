@@ -200,10 +200,18 @@ namespace ConsoleApp1
                                 {
                                     this.bord[a + (j * ip), n + (j * jp)] = f % 2;    //置きたい位置に設置、ひっくり返す
                                 }
-                                tf = true;      //※斜めがうまくいかないので要チェック！！
+                                tf = true;      
                                 break;
                             }
+                            else if(p == 7 && i == 7)
+                            {
+                                Console.WriteLine("そこには置けません");
+                            }
                         }
+                    }
+                    else if (p == 7)
+                    {
+                        Console.WriteLine("そこには置けません");
                     }
                 }
             }
@@ -212,7 +220,7 @@ namespace ConsoleApp1
                 Console.WriteLine("そこには置けません");
             }                       
         }
-
+        
 
     }
 }

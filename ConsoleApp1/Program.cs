@@ -58,7 +58,20 @@ namespace ConsoleApp1
                 //駒の配置場所を決めてもらう
                 while (true)
                 {
-                    players[f % 2].point(ref a, ref n);
+
+                    bool error = true; //エラーが発生する場合はtrueとし、正常に動作した場合にfalseを代入しループを抜ける
+                    while (error == true)
+                    {
+                        try
+                        {
+                            players[f % 2].point(ref a, ref n);
+                            error = false;
+                        }
+                        catch (System.FormatException)
+                        {
+                            Console.WriteLine("不正な値です\n");
+                        }
+                    }
                     bord.put(ref a, ref n, ref f,ref tf);
                     if (tf == true)
                     {

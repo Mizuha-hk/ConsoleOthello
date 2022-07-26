@@ -26,5 +26,7 @@ namespace ConsoleApp1
             Console.Write("列");
             n = int.Parse(Console.ReadLine()) - 1;
         }
+
+
     }
 }

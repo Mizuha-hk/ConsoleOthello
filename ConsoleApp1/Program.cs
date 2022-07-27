@@ -49,11 +49,11 @@ namespace ConsoleApp1
                 Console.WriteLine(names[f%2] + "さんのターン");
                 if (f % 2 == 0)
                 {
-                    Console.WriteLine("●");
+                    Console.WriteLine("〇");
                 }
                 else
                 {
-                    Console.WriteLine("〇");
+                    Console.WriteLine("●");
                 }
 
                 //駒の配置場所を決めてもらう
@@ -72,9 +72,13 @@ namespace ConsoleApp1
                                 players[f % 2].point(ref a, ref n);
                                 error = false;
                             }
-                            catch (System.FormatException)
+                            catch (System.FormatException)      //数値でない値を入れた場合の例外処理
                             {
                                 Console.WriteLine("不正な値です\n");
+                            }
+                            catch (IndexOutOfRangeException)    //盤面に設定されてない範囲の座標を入力した場合の例外処理
+                            {
+                                Console.WriteLine("座標が盤面の範囲外です\n");
                             }
                         }
                         bord.put(ref a, ref n, ref f, ref tf);
@@ -86,6 +90,7 @@ namespace ConsoleApp1
                     else
                     {
                         players[f % 2].disable = true;  //設置不可である→ループを抜けてターンチェンジ
+                        Console.WriteLine("設置可能なマスが無いためパスされました");
                         break;
                     }
                 }

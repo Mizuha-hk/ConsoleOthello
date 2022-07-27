@@ -28,6 +28,11 @@ namespace ConsoleApp1
             a = int.Parse(Console.ReadLine()) - 1;
             Console.Write("列");
             n = int.Parse(Console.ReadLine()) - 1;
+
+            if (a < 0 || n < 0 || a > 7 || n > 7)
+            {
+                throw new IndexOutOfRangeException();
+            }
         }
         
         

@@ -62,11 +62,11 @@ namespace ConsoleApp1
                         }
                         else if (this.bord[i, j] == 0)
                         {
-                            Console.Write("●|");
+                            Console.Write("〇|");
                         }
                         else
                         {
-                            Console.Write("〇|");
+                            Console.Write("●|");
                         }
                     }
                 }
@@ -192,13 +192,18 @@ namespace ConsoleApp1
                     {
                         for (int i = 2; i <= 7; i++)
                         {
-                            if (a + (i * ip) >= 0 && a + (i * ip) < 8 && n + (i * jp) >= 0 && n + (i * jp) < 8)
+                            this.I1 = a + (i * ip);
+                            this.J1 = n + (i * jp);
+                            if(bord[i1, j1] == 2) //空きのマス(2)があった場合は置けないので即ブレイクする
+                            {
+                                break;
+                            }
+                            else if (a + (i * ip) >= 0 && a + (i * ip) < 8 && n + (i * jp) >= 0 && n + (i * jp) < 8)
                             {
                                 //調べたい値が配列の定義範囲を超えない場合、実行
-                                this.I1 = a + (i * ip);
-                                this.J1 = n + (i * jp);
-                                if (bord[i1, j1] == f % 2)   //i個(i >= 2)先に自分の駒があるとき  ※個々の条件文要修正
-                                {
+                                
+                                if (bord[i1, j1] == f % 2)   //i個(i >= 2)先に自分の駒があるとき
+                                {                
                                     for (int j = 0; j <= i; j++)
                                     {
                                         this.bord[a + (j * ip), n + (j * jp)] = f % 2;    //置きたい位置に設置、ひっくり返す
@@ -282,10 +287,15 @@ namespace ConsoleApp1
                             {
                                 for (int i = 2; i <= 7; i++)
                                 {
-                                    if (a + (i * ip) >= 0 && a + (i * ip) < 8 && n + (i * jp) >= 0 && n + (i * jp) < 8)
+                                    this.I1 = a + (i * ip);
+                                    this.J1 = n + (i * jp);
+                                    if(bord[i1, j1] == 2)
                                     {
-                                        this.I1 = a + (i * ip);
-                                        this.J1 = n + (i * jp);
+                                        break;
+                                    }
+                                    else if (a + (i * ip) >= 0 && a + (i * ip) < 8 && n + (i * jp) >= 0 && n + (i * jp) < 8)
+                                    {
+                                        
                                         if (bord[i1, j1] == f % 2)   //i個(i >= 2)先に自分の駒があるとき
                                         {
                                             putable = true;
@@ -298,6 +308,7 @@ namespace ConsoleApp1
                 }
             }
         }
+
         //駒数を数えるメソッド
         public void counter(ref int f,ref int count)
         {

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
@@ -18,10 +14,10 @@ namespace ConsoleApp1
             this.name = name;
         }
 
-        
+
 
         //駒を置く座標を指定するメソッド
-        public void point(ref int a,ref int n)
+        public void point(ref int a, ref int n)
         {
             Console.WriteLine("配置場所を指定");
             Console.Write("行");
@@ -34,7 +30,7 @@ namespace ConsoleApp1
                 throw new IndexOutOfRangeException();
             }
         }
-        
-        
+
+
     }
 }

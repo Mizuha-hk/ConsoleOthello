@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
@@ -31,13 +27,13 @@ namespace ConsoleApp1
             //盤面初期化
             Bord bord = new Bord();
             bord.def_set();
-            
+
             int f = 0;
             //どちらが先攻を決める
             Wfirst(f);
 
             //ゲーム進行部
-            while(bord.end == false)
+            while (bord.end == false)
             {
                 int a = 0;  //行指定用変数
                 int n = 0;  //列指定用変数
@@ -46,7 +42,7 @@ namespace ConsoleApp1
 
                 //最新の盤面と誰のターンかを表示
                 bord.display();
-                Console.WriteLine(names[f%2] + "さんのターン");
+                Console.WriteLine(names[f % 2] + "さんのターン");
                 if (f % 2 == 0)
                 {
                     Console.WriteLine("〇");
@@ -59,7 +55,7 @@ namespace ConsoleApp1
                 //駒の配置場所を決めてもらう
                 while (true)
                 {
-                    bord.sertch(ref f,ref putable);
+                    bord.sertch(ref f, ref putable);
                     if (putable == true)
                     {
                         players[f % 2].disable = false; //設置可能である
@@ -102,7 +98,7 @@ namespace ConsoleApp1
                 f++;        //操作プレイヤーを入れ替える
             }
             f = 0;
-            bord.counter(ref f,ref players[f % 2].count);
+            bord.counter(ref f, ref players[f % 2].count);
             f++;
             bord.counter(ref f, ref players[f % 2].count); //プレイヤー１，２それぞれの駒の数を数える
 
@@ -110,7 +106,7 @@ namespace ConsoleApp1
             {
                 Console.WriteLine(names[0] + "さんの勝利");
             }
-            else if(players[0].count < players[1].count)
+            else if (players[0].count < players[1].count)
             {
                 Console.WriteLine(names[1] + "さんの勝利");
             }

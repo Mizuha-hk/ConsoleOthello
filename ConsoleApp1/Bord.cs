@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConsoleApp1
+namespace ConsoleOthello
 {
     internal class Bord
     {
@@ -17,13 +17,13 @@ namespace ConsoleApp1
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    this.bord[i, j] = 2;
+                    bord[i, j] = 2;
                 }
             }
-            this.bord[3, 3] = 0;
-            this.bord[4, 4] = 0;
-            this.bord[3, 4] = 1;
-            this.bord[4, 3] = 1;
+            bord[3, 3] = 0;
+            bord[4, 4] = 0;
+            bord[3, 4] = 1;
+            bord[4, 3] = 1;
         }
 
         //盤面の表示
@@ -52,11 +52,11 @@ namespace ConsoleApp1
                     //↑行と列の情報を表示
                     else
                     {
-                        if (this.bord[i, j] == 2)
+                        if (bord[i, j] == 2)
                         {
                             Console.Write("  |");
                         }
-                        else if (this.bord[i, j] == 0)
+                        else if (bord[i, j] == 0)
                         {
                             Console.Write("〇|");
                         }
@@ -78,9 +78,9 @@ namespace ConsoleApp1
             {
                 for (int j = 0; j <= 7; j++)
                 {
-                    if (this.bord[i, j] == 0)
+                    if (bord[i, j] == 0)
                     {
-                        this.end = true;
+                        end = true;
                     }
                 }
             }
@@ -92,14 +92,14 @@ namespace ConsoleApp1
         {
             set
             {
-                this.i1 = value;
-                if (this.i1 < 0)
+                i1 = value;
+                if (i1 < 0)
                 {
-                    this.i1 = 0;
+                    i1 = 0;
                 }
-                else if (this.i1 >= 8)
+                else if (i1 >= 8)
                 {
-                    this.i1 = 7;
+                    i1 = 7;
                 }
             }
             get
@@ -111,14 +111,14 @@ namespace ConsoleApp1
         {
             set
             {
-                this.j1 = value;
-                if (this.j1 < 0)
+                j1 = value;
+                if (j1 < 0)
                 {
-                    this.J1 = 0;
+                    J1 = 0;
                 }
-                else if (this.j1 >= 8)
+                else if (j1 >= 8)
                 {
-                    this.J1 = 7;
+                    J1 = 7;
                 }
             }
             get
@@ -183,19 +183,19 @@ namespace ConsoleApp1
                             break;
                     }
 
-                    this.I1 = a + ip;
-                    this.J1 = n + jp;
+                    I1 = a + ip;
+                    J1 = n + jp;
                     if (bord[i1, j1] == (f + 1) % 2)   //ｐの位置に相手の駒がある時 
                     {
                         for (int i = 2; i <= 7; i++)
                         {
-                            this.I1 = a + (i * ip);
-                            this.J1 = n + (i * jp);
+                            I1 = a + i * ip;
+                            J1 = n + i * jp;
                             if (bord[i1, j1] == 2) //空きのマス(2)があった場合は置けないので即ブレイクする
                             {
                                 break;
                             }
-                            else if (a + (i * ip) >= 0 && a + (i * ip) < 8 && n + (i * jp) >= 0 && n + (i * jp) < 8)
+                            else if (a + i * ip >= 0 && a + i * ip < 8 && n + i * jp >= 0 && n + i * jp < 8)
                             {
                                 //調べたい値が配列の定義範囲を超えない場合、実行
 
@@ -203,7 +203,7 @@ namespace ConsoleApp1
                                 {
                                     for (int j = 0; j <= i; j++)
                                     {
-                                        this.bord[a + (j * ip), n + (j * jp)] = f % 2;    //置きたい位置に設置、ひっくり返す
+                                        bord[a + j * ip, n + j * jp] = f % 2;    //置きたい位置に設置、ひっくり返す
                                     }
                                     tf = true;
                                     break;
@@ -278,19 +278,19 @@ namespace ConsoleApp1
                                     break;
                             }           //putメソッドと同じ手法で配置可能か調査
 
-                            this.I1 = a + ip;
-                            this.J1 = n + jp;
+                            I1 = a + ip;
+                            J1 = n + jp;
                             if (bord[i1, j1] == (f + 1) % 2)   //ｐの位置に相手の駒がある時 
                             {
                                 for (int i = 2; i <= 7; i++)
                                 {
-                                    this.I1 = a + (i * ip);
-                                    this.J1 = n + (i * jp);
+                                    I1 = a + i * ip;
+                                    J1 = n + i * jp;
                                     if (bord[i1, j1] == 2)
                                     {
                                         break;
                                     }
-                                    else if (a + (i * ip) >= 0 && a + (i * ip) < 8 && n + (i * jp) >= 0 && n + (i * jp) < 8)
+                                    else if (a + i * ip >= 0 && a + i * ip < 8 && n + i * jp >= 0 && n + i * jp < 8)
                                     {
 
                                         if (bord[i1, j1] == f % 2)   //i個(i >= 2)先に自分の駒があるとき
@@ -313,7 +313,7 @@ namespace ConsoleApp1
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if (this.bord[i, j] == f % 2)
+                    if (bord[i, j] == f % 2)
                     {
                         count++;
                     }

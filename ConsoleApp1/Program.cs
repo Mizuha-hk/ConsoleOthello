@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConsoleApp1
+namespace ConsoleOthello
 {
     internal class Program
     {
@@ -68,7 +68,7 @@ namespace ConsoleApp1
                                 players[f % 2].point(ref a, ref n);
                                 error = false;
                             }
-                            catch (System.FormatException)      //数値でない値を入れた場合の例外処理
+                            catch (FormatException)      //数値でない値を入れた場合の例外処理
                             {
                                 Console.WriteLine("不正な値です\n");
                             }

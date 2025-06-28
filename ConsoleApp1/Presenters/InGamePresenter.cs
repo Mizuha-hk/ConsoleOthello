@@ -1,8 +1,8 @@
-﻿using System;
-using ConsoleOthello.Interfaces.Presenters;
+﻿using ConsoleOthello.Interfaces.Presenters;
 using ConsoleOthello.Models.IO;
 using ConsoleOthello.Models.ViewModels;
 using ConsoleOthello.Subjects;
+using System;
 
 namespace ConsoleOthello.Presenters;
 

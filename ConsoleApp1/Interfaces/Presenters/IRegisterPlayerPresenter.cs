@@ -1,5 +1,4 @@
 ﻿using ConsoleOthello.Models.IO;
-using ConsoleOthello.Models.ViewModels;
 
 namespace ConsoleOthello.Interfaces.Presenters;
 

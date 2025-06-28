@@ -1,14 +1,14 @@
-﻿using System;
-using ConsoleOthello.Presenters;
-using ConsoleOthello.Controllers;
-using ConsoleOthello.Views;
-using ConsoleOthello.Subjects;
-using ConsoleOthello.Interfaces.UseCases;
-using ConsoleOthello.Interfaces.Presenters;
+﻿using ConsoleOthello.Controllers;
 using ConsoleOthello.Interactors;
-using Microsoft.Extensions.DependencyInjection;
+using ConsoleOthello.Interfaces.Presenters;
 using ConsoleOthello.Interfaces.Repositories;
+using ConsoleOthello.Interfaces.UseCases;
+using ConsoleOthello.Presenters;
 using ConsoleOthello.Repositories;
+using ConsoleOthello.Subjects;
+using ConsoleOthello.Views;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace ConsoleOthello;
 

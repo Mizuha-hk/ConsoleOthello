@@ -1,9 +1,9 @@
-﻿using System;
-using ConsoleOthello.Controllers;
+﻿using ConsoleOthello.Controllers;
 using ConsoleOthello.Entities;
 using ConsoleOthello.Exceptions;
 using ConsoleOthello.Models.ViewModels;
 using ConsoleOthello.Subjects;
+using System;
 
 namespace ConsoleOthello.Views;
 

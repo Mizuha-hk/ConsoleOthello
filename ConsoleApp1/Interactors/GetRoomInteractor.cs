@@ -1,8 +1,8 @@
-﻿using System;
-using ConsoleOthello.Interfaces.Presenters;
+﻿using ConsoleOthello.Interfaces.Presenters;
 using ConsoleOthello.Interfaces.Repositories;
 using ConsoleOthello.Interfaces.UseCases;
 using ConsoleOthello.Models.IO;
+using System;
 
 namespace ConsoleOthello.Interactors;
 

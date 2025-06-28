@@ -1,5 +1,4 @@
 ﻿using System;
-using ConsoleOthello.Entities;
 
 namespace ConsoleOthello.Models.IO;
 

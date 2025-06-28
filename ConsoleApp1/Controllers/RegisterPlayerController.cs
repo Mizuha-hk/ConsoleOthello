@@ -1,6 +1,6 @@
-﻿using System;
-using ConsoleOthello.Interfaces.UseCases;
+﻿using ConsoleOthello.Interfaces.UseCases;
 using ConsoleOthello.Models.IO;
+using System;
 
 namespace ConsoleOthello.Controllers;
 

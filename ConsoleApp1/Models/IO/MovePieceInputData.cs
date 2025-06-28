@@ -1,5 +1,5 @@
-﻿using System;
-using ConsoleOthello.Entities;
+﻿using ConsoleOthello.Entities;
+using System;
 
 namespace ConsoleOthello.Models.IO;
 

@@ -33,7 +33,7 @@ public class Board
 
         FillBoard();
 
-        board[3, 3] = Piece.Player1; 
+        board[3, 3] = Piece.Player1;
         board[3, 4] = Piece.Player2;
         board[4, 3] = Piece.Player2;
         board[4, 4] = Piece.Player1;
@@ -105,8 +105,10 @@ public class Board
     {
         if (board[row, col] != Piece.None)
         {
-            return new MovableInfo { 
-                IsValidMove = false, FlipableDirections = new List<int[]>() 
+            return new MovableInfo
+            {
+                IsValidMove = false,
+                FlipableDirections = new List<int[]>()
             };
         }
 
@@ -127,7 +129,7 @@ public class Board
                 r += directionRow;
                 c += directionCol;
 
-                if(r < 0 || r >= Size || c < 0 || c >= Size)
+                if (r < 0 || r >= Size || c < 0 || c >= Size)
                 {
                     break;
                 }
@@ -141,19 +143,21 @@ public class Board
             }
         }
 
-        return new MovableInfo{
-            IsValidMove = validMove, FlipableDirections = flipableDirections 
+        return new MovableInfo
+        {
+            IsValidMove = validMove,
+            FlipableDirections = flipableDirections
         };
     }
 
     private void FlipPieces(int row, int col, Piece piece, MovableInfo info)
     {
         board[row, col] = piece;
-        if(piece == Piece.Player1)
+        if (piece == Piece.Player1)
         {
             player1Count++;
         }
-        else if(piece == Piece.Player2)
+        else if (piece == Piece.Player2)
         {
             player2Count++;
         }
@@ -170,12 +174,12 @@ public class Board
                 r += directionRow;
                 c += directionCol;
 
-                if(piece == Piece.Player1)
+                if (piece == Piece.Player1)
                 {
                     player1Count++;
                     player2Count--;
                 }
-                else if(piece == Piece.Player2)
+                else if (piece == Piece.Player2)
                 {
                     player2Count++;
                     player1Count--;

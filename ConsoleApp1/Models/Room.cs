@@ -8,7 +8,7 @@ public class Room
     public Guid Id { get; } = Guid.NewGuid();
     public Player Player1 { get; set; }
     public Player Player2 { get; set; }
-    public bool IsFull 
+    public bool IsFull
         => Player1 != null && Player2 != null;
     public bool IsPlayer1Turn { get; set; } = true;
     public bool PassedLastTurn { get; set; } = false;

@@ -2,7 +2,7 @@
 
 namespace ConsoleOthello.Views;
 
-public abstract class ViewBase: IDisposable
+public abstract class ViewBase : IDisposable
 {
     public abstract void Show();
     public virtual void Update()

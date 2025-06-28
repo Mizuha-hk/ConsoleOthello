@@ -8,11 +8,11 @@ public class Player
 
     public Player(string name, Piece piece)
     {
-        if(piece != Piece.Player1 && piece != Piece.Player2)
+        if (piece != Piece.Player1 && piece != Piece.Player2)
         {
             throw new ArgumentException("プレイヤーのコマのタイプはPlayer1またはPlayer2である必要があります。");
         }
-        if(string.IsNullOrWhiteSpace(name))
+        if (string.IsNullOrWhiteSpace(name))
         {
             throw new ArgumentException("プレイヤー名は空であってはいけません。");
         }

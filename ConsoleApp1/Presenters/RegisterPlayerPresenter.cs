@@ -5,7 +5,7 @@ using ConsoleOthello.Subjects;
 
 namespace ConsoleOthello.Presenters;
 
-public class RegisterPlayerPresenter: IRegisterPlayerPresenter
+public class RegisterPlayerPresenter : IRegisterPlayerPresenter
 {
     private readonly RegisterPlayerSubject _subject;
 

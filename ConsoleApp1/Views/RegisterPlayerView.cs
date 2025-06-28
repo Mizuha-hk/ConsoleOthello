@@ -1,7 +1,7 @@
-﻿using System;
-using ConsoleOthello.Controllers;
+﻿using ConsoleOthello.Controllers;
 using ConsoleOthello.Models.ViewModels;
 using ConsoleOthello.Subjects;
+using System;
 
 namespace ConsoleOthello.Views;
 
@@ -88,7 +88,7 @@ public class RegisterPlayerView : ViewBase
 
     public override void Update()
     {
-        if(Player1Input && Player2Input)
+        if (Player1Input && Player2Input)
         {
             _playerController.RegisterPlayer(Player1Name, Player2Name);
             ClearInput();

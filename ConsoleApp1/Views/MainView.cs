@@ -1,7 +1,7 @@
 ﻿using System;
 namespace ConsoleOthello.Views;
 
-public class MainView: ViewBase
+public class MainView : ViewBase
 {
     private string errorMessage = string.Empty;
     public override void Show()

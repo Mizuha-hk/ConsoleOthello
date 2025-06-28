@@ -1,10 +1,9 @@
-﻿using System;
-using ConsoleOthello.Entities;
+﻿using ConsoleOthello.Entities;
 using ConsoleOthello.Interfaces.Presenters;
 using ConsoleOthello.Interfaces.Repositories;
 using ConsoleOthello.Interfaces.UseCases;
-using ConsoleOthello.Models;
 using ConsoleOthello.Models.IO;
+using System;
 
 namespace ConsoleOthello.Interactors;
 
@@ -17,11 +16,11 @@ public class RegisterPlayerInteractor : IRegisterPlayerUseCase
         IRegisterPlayerPresenter presenter,
         IRoomStateRepository repository)
     {
-        if(presenter == null)
+        if (presenter == null)
         {
             throw new ArgumentNullException(nameof(presenter), "プレゼンターはnullであってはいけません。");
         }
-        if(repository == null)
+        if (repository == null)
         {
             throw new ArgumentNullException(nameof(repository), "リポジトリはnullであってはいけません。");
         }
@@ -32,11 +31,11 @@ public class RegisterPlayerInteractor : IRegisterPlayerUseCase
 
     public void Handle(RegisterPlayerInputData input)
     {
-        if(input == null)
+        if (input == null)
         {
             throw new ArgumentNullException(nameof(input), "入力データはnullであってはいけません。");
         }
-        if(string.IsNullOrWhiteSpace(input.Player1Name))
+        if (string.IsNullOrWhiteSpace(input.Player1Name))
         {
             throw new ArgumentException("プレイヤー名は空であってはいけません。", nameof(input.Player1Name));
         }

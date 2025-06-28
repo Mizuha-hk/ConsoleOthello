@@ -1,5 +1,5 @@
-﻿using System;
-using ConsoleOthello.Entities;
+﻿using ConsoleOthello.Entities;
+using System;
 
 namespace ConsoleOthello.Models.IO;
 
@@ -9,7 +9,7 @@ public class RegisterPlayerOutputData
     public Player Player1 { get; set; }
     public Player Player2 { get; set; }
 
-    public RegisterPlayerOutputData(Guid roomId,Player player1, Player player2)
+    public RegisterPlayerOutputData(Guid roomId, Player player1, Player player2)
     {
         if (roomId == Guid.Empty)
         {
@@ -19,7 +19,7 @@ public class RegisterPlayerOutputData
         {
             throw new ArgumentException("プレイヤーはnullであってはいけません．");
         }
-        if(player2 == null)
+        if (player2 == null)
         {
             throw new ArgumentException("プレイヤーはnullであってはいけません．");
         }

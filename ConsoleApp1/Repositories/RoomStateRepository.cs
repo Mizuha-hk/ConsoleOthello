@@ -3,7 +3,6 @@ using ConsoleOthello.Interfaces.Repositories;
 using ConsoleOthello.Models;
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace ConsoleOthello.Repositories;
 

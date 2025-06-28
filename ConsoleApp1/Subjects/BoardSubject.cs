@@ -1,6 +1,5 @@
-﻿using System;
-using ConsoleOthello.Models.IO;
-using ConsoleOthello.Models.ViewModels;
+﻿using ConsoleOthello.Models.ViewModels;
+using System;
 
 namespace ConsoleOthello.Subjects;
 

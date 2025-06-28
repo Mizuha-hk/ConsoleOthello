@@ -1,8 +1,8 @@
-﻿using System;
-using ConsoleOthello.Entities;
+﻿using ConsoleOthello.Entities;
 using ConsoleOthello.Exceptions;
 using ConsoleOthello.Interfaces.UseCases;
 using ConsoleOthello.Models.IO;
+using System;
 
 namespace ConsoleOthello.Controllers;
 

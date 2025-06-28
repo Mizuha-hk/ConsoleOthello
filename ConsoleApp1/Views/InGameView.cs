@@ -82,18 +82,18 @@ public class InGameView : ViewBase
     {
         Piece piece;
         string tuernPlayerName;
-        string tuernPlayerPieve;
+        var color = Console.ForegroundColor;
         if (viewModel.IsPlayer1Turn)
         {
             piece = Piece.Player1;
             tuernPlayerName = viewModel.Player1.Name;
-            tuernPlayerPieve = "●";
+            color = ConsoleColor.Black;
         }
         else
         {
             piece = Piece.Player2;
             tuernPlayerName = viewModel.Player2.Name;
-            tuernPlayerPieve = "○";
+            color = ConsoleColor.White;
         }
         var moveAvalable = viewModel.Board.IsMoveAvailable(piece);
         Console.Clear();
@@ -115,7 +115,9 @@ public class InGameView : ViewBase
                         Console.Write("| ● ");
                         break;
                     case Piece.Player2:
-                        Console.Write("| ○ ");
+                        Console.Write("| ");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write("● ");
                         break;
                     case Piece.None:
                         bool isMoveAble = false;
@@ -154,7 +156,11 @@ public class InGameView : ViewBase
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.Write($" {tuernPlayerName}");
         Console.ResetColor();
-        Console.WriteLine($" さんのターン: {tuernPlayerPieve}");
+        Console.Write($" さんのターン:");
+        Console.ForegroundColor = color;
+        Console.BackgroundColor = ConsoleColor.DarkGreen;
+        Console.WriteLine(" ● ");
+        Console.ResetColor();
     }
 
     private void EndGame()
@@ -172,6 +178,7 @@ public class InGameView : ViewBase
         while (!isValidInput)
         {
             Console.WriteLine("行と列を入力してください（例: 3 4）。終了するには 'quit' を入力してください。");
+            Console.WriteLine();
             Console.Write("> ");
             var input = Console.ReadLine();
             if (string.IsNullOrEmpty(input))

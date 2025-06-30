@@ -5,6 +5,13 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  
+	<!--Version Settings-->
+	  <Version>0.1.0</Version>
+	  <AssemblyVersion>$(Version)</AssemblyVersion>
+	  <FileVersion>$(Version)</FileVersion>
+	  <ProductName>OthelloApp Console</ProductName>
+	  
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,0 +1,158 @@
+name: .NET Core Desktop
+
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: '9.0.x'
+  PROJECT_NAME: 'OthelloApp.Console.App'
+  TEST_PROJECT: 'OthelloApp.Core.Test'
+  
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build solution
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Run tests
+      run: dotnet test --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage"
+
+  release:
+     name: Create Release
+     runs-on: ubuntu-latest
+     needs: test
+     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+
+     steps:
+     - name: Checkout code
+       uses: actions/checkout@v4
+       with:
+         fetch-depth: 0
+
+     - name: Setup .NET
+       uses: actions/setup-dotnet@v4
+       with: 
+         dotnet-version: ${{ env.DOTNET_VERSION }}
+
+     - name: Restore dependencies
+       run: dotnet restore
+
+     - name: Get version from project file
+       id: get_version
+       run: |
+         VERSION=$(grep '<Version>' OthelloApp.Console/OthelloApp.ConsoleApp.csproj | sed 's/.*<Version>\(.*\)<\/Version>.*/\1/' || echo "1.0.0")
+         echo "version=$VERSION" >> $GITHUB_OUTPUT
+         echo "Version: $VERSION"
+
+     - name: Build for multiple platforms
+       run: |
+         # Windows x64
+         dotnet publish OthelloApp.Console/OthelloApp.ConsoleApp.csproj \
+           -c Release \
+           -r win-x64 \
+           --self-contained true \
+           -p:PublishSingleFile=true \
+           -p:IncludeNativeLibrariesForSelfExtract=true \
+           -o ./publish/win-x64
+
+         # Linux x64
+         dotnet publish OthelloApp.Console/OthelloApp.ConsoleApp.csproj \
+            -c Release \
+            -r linux-x64 \
+            --self-contained true \
+            -p:PublishSingleFile=true \
+            -p:IncludeNativeLibrariesForSelfExtract=true \
+            -o ./publish/linux-x64
+
+          # macOS x64
+          dotnet publish OthelloApp.Console/OthelloApp.ConsoleApp.csproj \
+            -c Release \
+            -r osx-x64 \
+            --self-contained true \
+            -p:PublishSingleFile=true \
+            -p:IncludeNativeLibrariesForSelfExtract=true \
+            -o ./publish/osx-x64
+
+     - name: Create release archives
+       run: |
+          cd publish
+
+          #Windows
+          zip -r ../OthelloApp-${{ steps.get_version.outputs.version }}-win-x64.zip win-x64/
+          
+          # Linux
+          tar -czf ../OthelloApp-${{ steps.get_version.outputs.version }}-linux-x64.tar.gz linux-x64/
+          
+          # macOS
+          tar -czf ../OthelloApp-${{ steps.get_version.outputs.version }}-osx-x64.tar.gz osx-x64/
+          
+          cd ..
+     - name: Create Release
+       id: create_release
+       uses: actions/create-release@v1
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       with:
+         tag_name: v${{ steps.get_version.outputs.version }}
+         release_name: Release v${{ steps.get_version.outputs.version }}
+         body: |
+           ## Changes
+           
+           - Auto-generated release from master branch
+           - Commit: ${{ github.sha }}
+           ## Downloads
+
+           - Windows x64: `OthelloApp-${{ steps.get_version.outputs.version }}-win-x64.zip`
+           - Linux x64: `OthelloApp-${{ steps.get_version.outputs.version }}-linux-x64.tar.gz`
+           - macOS x64: `OthelloApp-${{ steps.get_version.outputs.version }}-osx-x64.tar.gz`
+         draft: false
+         prerelease: false
+        
+     - name: Upload Windows Release Asset
+       uses: actions/upload-release-asset@v1
+       env: 
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       with:
+         upload_url: ${{ steps.create_release.outputs.upload_url }}
+         asset_path: ./OthelloApp-${{ steps.get_version.outputs.version }}-win-x64.zip
+         asset_name: OthelloApp-${{ steps.get_version.outputs.version }}-win-x64.zip
+         asset_content_type: application/zip
+         
+     - name: Upload Linux Release Asset
+       uses: actions/upload-release-asset@v1
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       with:
+         upload_url: ${{ steps.create_release.outputs.upload_url }}
+         asset_path: ./OthelloApp-${{ steps.get_version.outputs.version }}-linux-x64.tar.gz
+         asset_name: OthelloApp-${{ steps.get_version.outputs.version }}-linux-x64.tar.gz
+         asset_content_type: application/gzip
+        
+     - name: Upload macOS Release Asset
+       uses: actions/upload-release-asset@v1
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       with:
+         upload_url: ${{ steps.create_release.outputs.upload_url }}
+         asset_path: ./OthelloApp-${{ steps.get_version.outputs.version }}-osx-x64.tar.gz
+         asset_name: OthelloApp-${{ steps.get_version.outputs.version }}-osx-x64.tar.gz
+         asset_content_type: application/gzip
+       

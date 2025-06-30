@@ -8,7 +8,7 @@ open OthelloApp.Core.Exceptions
 module ValidMoveTests =
 
     [<Fact>]
-    let ``ValidMove����ȍ쐬`` () =
+    let ``ValidMove正常な作成`` () =
         let validMove = ValidMove()
         validMove.Row <- 2
         validMove.Column <- 3
@@ -18,7 +18,7 @@ module ValidMoveTests =
         Assert.Empty(validMove.Directions)
 
     [<Fact>]
-    let ``ValidMove�͈͊O�̍��W�ŗ�O����������`` () =
+    let ``ValidMove範囲外の座標で例外が発生する`` () =
         let validMove = ValidMove()
         
         Assert.Throws<BoardOutOfRangeException>(fun () -> validMove.Row <- -1) |> ignore
@@ -27,14 +27,14 @@ module ValidMoveTests =
         Assert.Throws<BoardOutOfRangeException>(fun () -> validMove.Column <- 8) |> ignore
 
     [<Fact>]
-    let ``ValidMoveDirections������`` () =
+    let ``ValidMoveDirections初期化`` () =
         let validMove = ValidMove()
         
         Assert.NotNull(validMove.Directions)
         Assert.Empty(validMove.Directions)
 
     [<Fact>]
-    let ``ValidMoveDirections�ǉ�`` () =
+    let ``ValidMoveDirections追加`` () =
         let validMove = ValidMove()
         let direction = Vector2(1, 0)
         

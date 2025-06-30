@@ -7,21 +7,21 @@ open OthelloApp.Core.Entities
 module ValidMovesTests =
 
     [<Fact>]
-    let ``ValidMoves初期化`` () =
+    let ``ValidMoves蛻晄悄蛹冒` () =
         let validMoves = ValidMoves()
         
         Assert.Empty(validMoves.MovableCells)
-        Assert.Equal(DiscType.Player1, validMoves.Player) // デフォルト値
+        Assert.Equal(DiscType.Player1, validMoves.Player) // 繝�繝輔か繝ｫ繝亥､
 
     [<Fact>]
-    let ``ValidMovesプレイヤー設定`` () =
+    let ``ValidMoves繝励Ξ繧､繝､繝ｼ險ｭ螳啻` () =
         let validMoves = ValidMoves()
         validMoves.Player <- DiscType.Player2
         
         Assert.Equal(DiscType.Player2, validMoves.Player)
 
     [<Fact>]
-    let ``ValidMovesMovableCells追加`` () =
+    let ``ValidMovesMovableCells霑ｽ蜉`` () =
         let validMoves = ValidMoves()
         let validMove = ValidMove()
         validMove.Row <- 2

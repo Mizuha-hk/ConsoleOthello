@@ -11,7 +11,7 @@ open OthelloApp.Core.Models
 
 module GetRoomInteractorTests =
 
-    // ƒeƒXƒg—p‚Ìƒ‚ƒbƒNƒNƒ‰ƒX
+    // ãƒ†ã‚¹ãƒˆç”¨ã®ãƒ¢ãƒƒã‚¯ã‚¯ãƒ©ã‚¹
     type MockInGamePresenter() =
         member val GetCompleteCallCount = 0 with get, set
         member val LastOutputData : GetRoomOutputData = null with get, set
@@ -38,7 +38,7 @@ module GetRoomInteractorTests =
             member this.DeleteRoom(_) = ()
 
     [<Fact>]
-    let ``GetRoomInteractor³í‚ÈƒP[ƒX`` () =
+    let ``GetRoomInteractoræ­£å¸¸ãªã‚±ãƒ¼ã‚¹`` () =
         let mockPresenter = MockInGamePresenter()
         let mockRepository = MockRoomStateRepository()
         let roomId = mockRepository.TestRoom.Id
@@ -53,21 +53,21 @@ module GetRoomInteractorTests =
         Assert.NotNull(mockPresenter.LastOutputData)
 
     [<Fact>]
-    let ``GetRoomInteractor‚ÅnullƒŠƒ|ƒWƒgƒŠ—áŠO`` () =
+    let ``GetRoomInteractorã§nullãƒªãƒã‚¸ãƒˆãƒªä¾‹å¤–`` () =
         let mockPresenter = MockInGamePresenter()
         
         Assert.Throws<ArgumentNullException>(fun () -> 
             GetRoomInteractor(null, mockPresenter) |> ignore)
 
     [<Fact>]
-    let ``GetRoomInteractor‚ÅnullƒvƒŒƒ[ƒ“ƒ^[—áŠO`` () =
+    let ``GetRoomInteractorã§nullãƒ—ãƒ¬ã‚¼ãƒ³ã‚¿ãƒ¼ä¾‹å¤–`` () =
         let mockRepository = MockRoomStateRepository()
         
         Assert.Throws<ArgumentNullException>(fun () -> 
             GetRoomInteractor(mockRepository, null) |> ignore)
 
     [<Fact>]
-    let ``GetRoomInteractor‚Ånull“ü—Í—áŠO`` () =
+    let ``GetRoomInteractorã§nullå…¥åŠ›ä¾‹å¤–`` () =
         let mockPresenter = MockInGamePresenter()
         let mockRepository = MockRoomStateRepository()
         let interactor = GetRoomInteractor(mockRepository, mockPresenter)
@@ -76,7 +76,7 @@ module GetRoomInteractorTests =
             interactor.Handle(null))
 
     [<Fact>]
-    let ``GetRoomInteractor‚Å‘¶Ý‚µ‚È‚¢ƒ‹[ƒ€—áŠO`` () =
+    let ``GetRoomInteractorã§å­˜åœ¨ã—ãªã„ãƒ«ãƒ¼ãƒ ä¾‹å¤–`` () =
         let mockPresenter = MockInGamePresenter()
         let mockRepository = MockRoomStateRepository()
         let interactor = GetRoomInteractor(mockRepository, mockPresenter)

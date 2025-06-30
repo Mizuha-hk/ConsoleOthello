@@ -12,7 +12,7 @@ open OthelloApp.Core.Models
 
 module MovePieceInteractorTests =
 
-    // �e�X�g�p�̃��b�N�N���X
+    // テスト用のモッククラス
     type MockInGamePresenter() =
         member val MoveCompleteCallCount = 0 with get, set
         member val LastOutputData : MovePieceOutputData = null with get, set
@@ -39,7 +39,7 @@ module MovePieceInteractorTests =
             member this.DeleteRoom(_) = ()
 
     [<Fact>]
-    let ``MovePieceInteractor����ȃP�[�X`` () =
+    let ``MovePieceInteractor正常なケース`` () =
         let mockPresenter = MockInGamePresenter()
         let mockRepository = MockRoomStateRepository()
         let roomId = mockRepository.TestRoom.Id
@@ -54,21 +54,21 @@ module MovePieceInteractorTests =
         Assert.NotNull(mockPresenter.LastOutputData)
 
     [<Fact>]
-    let ``MovePieceInteractor��null�v���[���^�[��O`` () =
+    let ``MovePieceInteractorでnullプレゼンター例外`` () =
         let mockRepository = MockRoomStateRepository()
         
         Assert.Throws<ArgumentNullException>(fun () -> 
             MovePieceInteractor(null, mockRepository) |> ignore)
 
     [<Fact>]
-    let ``MovePieceInteractor��null���|�W�g����O`` () =
+    let ``MovePieceInteractorでnullリポジトリ例外`` () =
         let mockPresenter = MockInGamePresenter()
         
         Assert.Throws<ArgumentNullException>(fun () -> 
             MovePieceInteractor(mockPresenter, null) |> ignore)
 
     [<Fact>]
-    let ``MovePieceInteractor�Ŕ͈͊O���W��O`` () =
+    let ``MovePieceInteractorで範囲外座標例外`` () =
         let mockPresenter = MockInGamePresenter()
         let mockRepository = MockRoomStateRepository()
         let roomId = mockRepository.TestRoom.Id
@@ -80,7 +80,7 @@ module MovePieceInteractorTests =
             interactor.Handle(input))
 
     [<Fact>]
-    let ``MovePieceInteractor�ŋ��Guid��O`` () =
+    let ``MovePieceInteractorで空のGuid例外`` () =
         let mockPresenter = MockInGamePresenter()
         let mockRepository = MockRoomStateRepository()
         

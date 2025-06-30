@@ -10,7 +10,7 @@ open OthelloApp.Core.Models
 module RoomStateRepositoryTests =
 
     [<Fact>]
-    let ``CreateRoomV‚µ‚¢ƒ‹[ƒ€‚ğì¬`` () =
+    let ``CreateRoomæ–°ã—ã„ãƒ«ãƒ¼ãƒ ã‚’ä½œæˆ`` () =
         let repository = RoomStateRepository()
         
         let roomId = repository.CreateRoom()
@@ -21,7 +21,7 @@ module RoomStateRepositoryTests =
         Assert.Equal(roomId, room.Id)
 
     [<Fact>]
-    let ``GetRoom‘¶İ‚·‚éƒ‹[ƒ€‚ğæ“¾`` () =
+    let ``GetRoomå­˜åœ¨ã™ã‚‹ãƒ«ãƒ¼ãƒ ã‚’å–å¾—`` () =
         let repository = RoomStateRepository()
         let roomId = repository.CreateRoom()
         
@@ -33,7 +33,7 @@ module RoomStateRepositoryTests =
         Assert.True(room.IsPlayer1Turn)
 
     [<Fact>]
-    let ``GetRoom‘¶İ‚µ‚È‚¢ƒ‹[ƒ€‚Å—áŠO`` () =
+    let ``GetRoomå­˜åœ¨ã—ãªã„ãƒ«ãƒ¼ãƒ ã§ä¾‹å¤–`` () =
         let repository = RoomStateRepository()
         let nonExistentId = Guid.NewGuid()
         
@@ -41,7 +41,7 @@ module RoomStateRepositoryTests =
             repository.GetRoom(nonExistentId) |> ignore)
 
     [<Fact>]
-    let ``JoinRoomƒvƒŒƒCƒ„[‚ğƒ‹[ƒ€‚É’Ç‰Á`` () =
+    let ``JoinRoomãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ãƒ«ãƒ¼ãƒ ã«è¿½åŠ `` () =
         let repository = RoomStateRepository()
         let roomId = repository.CreateRoom()
         let player1 = Player("Player1", DiscType.Player1)
@@ -60,7 +60,7 @@ module RoomStateRepositoryTests =
         Assert.True(room2.IsFull)
 
     [<Fact>]
-    let ``JoinRoom–”t‚Ìƒ‹[ƒ€‚Å—áŠO`` () =
+    let ``JoinRoomæº€æ¯ã®ãƒ«ãƒ¼ãƒ ã§ä¾‹å¤–`` () =
         let repository = RoomStateRepository()
         let roomId = repository.CreateRoom()
         let player1 = Player("Player1", DiscType.Player1)
@@ -74,7 +74,7 @@ module RoomStateRepositoryTests =
             repository.JoinRoom(roomId, player3))
 
     [<Fact>]
-    let ``MovePiece—LŒø‚Èè‚ÅƒQ[ƒ€ó‘ÔXV`` () =
+    let ``MovePieceæœ‰åŠ¹ãªæ‰‹ã§ã‚²ãƒ¼ãƒ çŠ¶æ…‹æ›´æ–°`` () =
         let repository = RoomStateRepository()
         let roomId = repository.CreateRoom()
         
@@ -86,34 +86,34 @@ module RoomStateRepositoryTests =
         Assert.Equal(1, room.Board.GetPlayer2Count())
 
     [<Fact>]
-    let ``DeleteRoomƒ‹[ƒ€‚ğíœ`` () =
+    let ``DeleteRoomãƒ«ãƒ¼ãƒ ã‚’å‰Šé™¤`` () =
         let repository = RoomStateRepository()
         let roomId = repository.CreateRoom()
         
-        // ƒ‹[ƒ€‚ª‘¶İ‚·‚é‚±‚Æ‚ğŠm”F
+        // ãƒ«ãƒ¼ãƒ ãŒå­˜åœ¨ã™ã‚‹ã“ã¨ã‚’ç¢ºèª
         let room = repository.GetRoom(roomId)
         Assert.NotNull(room)
         
-        // ƒ‹[ƒ€‚ğíœ
+        // ãƒ«ãƒ¼ãƒ ã‚’å‰Šé™¤
         repository.DeleteRoom(roomId)
         
-        // ƒ‹[ƒ€‚ª‘¶İ‚µ‚È‚¢‚±‚Æ‚ğŠm”F
+        // ãƒ«ãƒ¼ãƒ ãŒå­˜åœ¨ã—ãªã„ã“ã¨ã‚’ç¢ºèª
         Assert.Throws<KeyNotFoundException>(fun () -> 
             repository.GetRoom(roomId) |> ignore)
 
     [<Fact>]
-    let ``MovePieceƒ^[ƒ“Ø‚è‘Ö‚¦‚ª³‚µ‚­“®ì`` () =
+    let ``MovePieceã‚¿ãƒ¼ãƒ³åˆ‡ã‚Šæ›¿ãˆãŒæ­£ã—ãå‹•ä½œ`` () =
         let repository = RoomStateRepository()
         let roomId = repository.CreateRoom()
         
         let room = repository.MovePiece(roomId, DiscType.Player1, 2, 4)
         
-        Assert.False(room.IsPlayer1Turn) // ƒ^[ƒ“‚ªØ‚è‘Ö‚í‚é
+        Assert.False(room.IsPlayer1Turn) // ã‚¿ãƒ¼ãƒ³ãŒåˆ‡ã‚Šæ›¿ã‚ã‚‹
         Assert.NotNull(room.NextPlayerValidMoves)
         Assert.Equal(DiscType.Player2, room.NextPlayerValidMoves.Player)
 
     [<Fact>]
-    let ``MovePieceƒQ[ƒ€I—¹‚Ìˆ—`` () =
+    let ``MovePieceã‚²ãƒ¼ãƒ çµ‚äº†æ™‚ã®å‡¦ç†`` () =
         let repository = RoomStateRepository()
         let roomId = repository.CreateRoom()
         let player1 = Player("Player1", DiscType.Player1)
@@ -123,12 +123,12 @@ module RoomStateRepositoryTests =
         
         let room = repository.GetRoom(roomId)
         
-        // ƒ{[ƒh‚ğè“®‚Å–”t‚É‚µ‚ÄƒQ[ƒ€I—¹ó‘Ô‚ğì‚é
+        // ãƒœãƒ¼ãƒ‰ã‚’æ‰‹å‹•ã§æº€æ¯ã«ã—ã¦ã‚²ãƒ¼ãƒ çµ‚äº†çŠ¶æ…‹ã‚’ä½œã‚‹
         for i in 0 .. 7 do
             for j in 0 .. 7 do
                 room.Board.[i, j] <- if (i + j) % 2 = 0 then CellType.Player1 else CellType.Player2
         
-        // ÅŒã‚Ìè‚ğ‘Å‚Â
+        // æœ€å¾Œã®æ‰‹ã‚’æ‰“ã¤
         room.Board.[7, 7] <- CellType.None
         let finalRoom = repository.MovePiece(roomId, DiscType.Player1, 7, 7)
         

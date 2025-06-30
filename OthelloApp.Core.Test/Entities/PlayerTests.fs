@@ -7,20 +7,20 @@ open OthelloApp.Core.Entities
 module PlayerTests =
 
     [<Fact>]
-    let ``Player³í‚Èì¬`` () =
+    let ``Playeræ­£å¸¸ãªä½œæˆ`` () =
         let player = Player("TestPlayer", DiscType.Player1)
         
         Assert.Equal("TestPlayer", player.Name)
         Assert.Equal(DiscType.Player1, player.DiscType)
 
     [<Fact>]
-    let ``Player‹ó‚Ì–¼‘O‚Å—áŠO‚ª”­¶‚·‚é`` () =
+    let ``Playerç©ºã®åå‰ã§ä¾‹å¤–ãŒç™ºç”Ÿã™ã‚‹`` () =
         Assert.Throws<ArgumentException>(fun () -> Player("", DiscType.Player1) |> ignore)
         Assert.Throws<ArgumentException>(fun () -> Player(" ", DiscType.Player1) |> ignore)
         Assert.Throws<ArgumentException>(fun () -> Player(null, DiscType.Player1) |> ignore)
 
     [<Fact>]
-    let ``Player‚ÌDiscTypeİ’è‚ª³‚µ‚¢`` () =
+    let ``Playerã®DiscTypeè¨­å®šãŒæ­£ã—ã„`` () =
         let player1 = Player("Player1", DiscType.Player1)
         let player2 = Player("Player2", DiscType.Player2)
         
@@ -28,6 +28,6 @@ module PlayerTests =
         Assert.Equal(DiscType.Player2, player2.DiscType)
 
     [<Fact>]
-    let ``Player–¼‘O‚ÌƒgƒŠƒ€ˆ—`` () =
+    let ``Playeråå‰ã®ãƒˆãƒªãƒ å‡¦ç†`` () =
         let player = Player("  TestPlayer  ", DiscType.Player1)
-        Assert.Equal("  TestPlayer  ", player.Name) // ƒgƒŠƒ€‚³‚ê‚È‚¢d—l‚ÌŠm”F
+        Assert.Equal("  TestPlayer  ", player.Name) // ãƒˆãƒªãƒ ã•ã‚Œãªã„ä»•æ§˜ã®ç¢ºèª

@@ -8,25 +8,25 @@ open OthelloApp.Core.Exceptions
 module BoardTests =
 
     [<Fact>]
-    let ``Board‰Šú‰»‚Ìó‘Ô‚ª³‚µ‚¢`` () =
+    let ``BoardåˆæœŸåŒ–æ™‚ã®çŠ¶æ…‹ãŒæ­£ã—ã„`` () =
         let board = Board()
         
-        // ‰Šú”z’u‚ÌŠm”F
+        // åˆæœŸé…ç½®ã®ç¢ºèª
         Assert.Equal(CellType.Player1, board.[3, 3])
         Assert.Equal(CellType.Player2, board.[3, 4])
         Assert.Equal(CellType.Player2, board.[4, 3])
         Assert.Equal(CellType.Player1, board.[4, 4])
         
-        // ƒvƒŒƒCƒ„[ƒJƒEƒ“ƒg‚ÌŠm”F
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚«ã‚¦ãƒ³ãƒˆã®ç¢ºèª
         Assert.Equal(2, board.GetPlayer1Count())
         Assert.Equal(2, board.GetPlayer2Count())
         
-        // ‘¼‚ÌƒZƒ‹‚Í‹ó‚Å‚ ‚é‚±‚Æ‚ÌŠm”F
+        // ä»–ã®ã‚»ãƒ«ã¯ç©ºã§ã‚ã‚‹ã“ã¨ã®ç¢ºèª
         Assert.Equal(CellType.None, board.[0, 0])
         Assert.Equal(CellType.None, board.[7, 7])
 
     [<Fact>]
-    let ``Indexer”ÍˆÍŠOƒAƒNƒZƒX‚Å—áŠO‚ª”­¶‚·‚é`` () =
+    let ``Indexerç¯„å›²å¤–ã‚¢ã‚¯ã‚»ã‚¹ã§ä¾‹å¤–ãŒç™ºç”Ÿã™ã‚‹`` () =
         let board = Board()
         
         Assert.Throws<BoardOutOfRangeException>(fun () -> board.[-1, 0] |> ignore) |> ignore
@@ -35,7 +35,7 @@ module BoardTests =
         Assert.Throws<BoardOutOfRangeException>(fun () -> board.[0, 8] |> ignore) |> ignore
 
     [<Fact>]
-    let ``Indexerİ’è‚Å”ÍˆÍŠOƒAƒNƒZƒX‚É—áŠO‚ª”­¶‚·‚é`` () =
+    let ``Indexerè¨­å®šã§ç¯„å›²å¤–ã‚¢ã‚¯ã‚»ã‚¹æ™‚ã«ä¾‹å¤–ãŒç™ºç”Ÿã™ã‚‹`` () =
         let board = Board()
         
         Assert.Throws<BoardOutOfRangeException>(fun () -> board.[-1, 0] <- CellType.Player1) |> ignore
@@ -44,7 +44,7 @@ module BoardTests =
         Assert.Throws<BoardOutOfRangeException>(fun () -> board.[0, 8] <- CellType.Player1) |> ignore
 
     [<Fact>]
-    let ``PlaceDisc”ÍˆÍŠOÀ•W‚Å—áŠO‚ª”­¶‚·‚é`` () =
+    let ``PlaceDiscç¯„å›²å¤–åº§æ¨™ã§ä¾‹å¤–ãŒç™ºç”Ÿã™ã‚‹`` () =
         let board = Board()
         
         Assert.Throws<BoardOutOfRangeException>(fun () -> board.PlaceDisc(-1, 0, DiscType.Player1)) |> ignore
@@ -53,88 +53,88 @@ module BoardTests =
         Assert.Throws<BoardOutOfRangeException>(fun () -> board.PlaceDisc(0, 8, DiscType.Player1)) |> ignore
 
     [<Fact>]
-    let ``PlaceDisc–³Œø‚ÈˆÊ’u‚Å—áŠO‚ª”­¶‚·‚é`` () =
+    let ``PlaceDiscç„¡åŠ¹ãªä½ç½®ã§ä¾‹å¤–ãŒç™ºç”Ÿã™ã‚‹`` () =
         let board = Board()
         
-        // Šù‚É‹î‚ª’u‚©‚ê‚Ä‚¢‚éêŠ
+        // æ—¢ã«é§’ãŒç½®ã‹ã‚Œã¦ã„ã‚‹å ´æ‰€
         Assert.Throws<CantMoveException>(fun () -> board.PlaceDisc(3, 3, DiscType.Player1)) |> ignore
         
-        // —LŒø‚Å‚È‚¢‹ó‚ÌƒZƒ‹
+        // æœ‰åŠ¹ã§ãªã„ç©ºã®ã‚»ãƒ«
         Assert.Throws<CantMoveException>(fun () -> board.PlaceDisc(0, 0, DiscType.Player1)) |> ignore
 
     [<Fact>]
-    let ``PlaceDisc—LŒø‚ÈˆÊ’u‚É‹î‚ğ’u‚¯‚é`` () =
+    let ``PlaceDiscæœ‰åŠ¹ãªä½ç½®ã«é§’ã‚’ç½®ã‘ã‚‹`` () =
         let board = Board()
         
-        // Player1‚Ì—LŒø‚Èè: (2,4)
+        // Player1ã®æœ‰åŠ¹ãªæ‰‹: (2,4)
         board.PlaceDisc(2, 4, DiscType.Player1)
         
         Assert.Equal(CellType.Player1, board.[2, 4])
-        Assert.Equal(CellType.Player1, board.[3, 3]) // Šù‘¶
-        Assert.Equal(CellType.Player1, board.[3, 4]) // ƒtƒŠƒbƒv‚³‚ê‚½
+        Assert.Equal(CellType.Player1, board.[3, 3]) // æ—¢å­˜
+        Assert.Equal(CellType.Player1, board.[3, 4]) // ãƒ•ãƒªãƒƒãƒ—ã•ã‚ŒãŸ
         
-        // ƒJƒEƒ“ƒg‚ÌŠm”F
+        // ã‚«ã‚¦ãƒ³ãƒˆã®ç¢ºèª
         Assert.Equal(4, board.GetPlayer1Count())
         Assert.Equal(1, board.GetPlayer2Count())
 
     [<Fact>]
-    let ``AllValidMoves‰Šúó‘Ô‚ÅPlayer1‚Ì—LŒøè‚ğæ“¾`` () =
+    let ``AllValidMovesåˆæœŸçŠ¶æ…‹ã§Player1ã®æœ‰åŠ¹æ‰‹ã‚’å–å¾—`` () =
         let board = Board()
         let validMoves = board.AllValidMoves(DiscType.Player1)
         
         Assert.Equal(DiscType.Player1, validMoves.Player)
         Assert.Equal(4, validMoves.MovableCells.Count)
         
-        // ‰Šúó‘Ô‚Ì—LŒøè: (2,4), (3,5), (4,2), (5,3)
+        // åˆæœŸçŠ¶æ…‹ã®æœ‰åŠ¹æ‰‹: (2,4), (3,5), (4,2), (5,3)
         let moves = validMoves.MovableCells |> Seq.map (fun m -> (m.Row, m.Column)) |> Seq.toList |> List.sort
         let expected = [(2, 4); (3, 5); (4, 2); (5, 3)] |> List.sort
         Assert.Equal<int * int>(expected, moves)
 
     [<Fact>]
-    let ``AllValidMoves‰Šúó‘Ô‚ÅPlayer2‚Ì—LŒøè‚ğæ“¾`` () =
+    let ``AllValidMovesåˆæœŸçŠ¶æ…‹ã§Player2ã®æœ‰åŠ¹æ‰‹ã‚’å–å¾—`` () =
         let board = Board()
         let validMoves = board.AllValidMoves(DiscType.Player2)
         
         Assert.Equal(DiscType.Player2, validMoves.Player)
         Assert.Equal(4, validMoves.MovableCells.Count)
         
-        // ‰Šúó‘Ô‚Ì—LŒøè: (2,3), (3,2), (4,5), (5,4)
+        // åˆæœŸçŠ¶æ…‹ã®æœ‰åŠ¹æ‰‹: (2,3), (3,2), (4,5), (5,4)
         let moves = validMoves.MovableCells |> Seq.map (fun m -> (m.Row, m.Column)) |> Seq.toList |> List.sort
         let expected = [(2, 3); (3, 2); (4, 5); (5, 4)] |> List.sort
         Assert.Equal<int * int>(expected, moves)
 
     [<Fact>]
-    let ``PlaceDiscŒã‚ÌƒJƒEƒ“ƒg•ÏX‚ª³‚µ‚¢`` () =
+    let ``PlaceDiscå¾Œã®ã‚«ã‚¦ãƒ³ãƒˆå¤‰æ›´ãŒæ­£ã—ã„`` () =
         let board = Board()
         
-        // ‰Šúó‘Ô: Player1=2, Player2=2
+        // åˆæœŸçŠ¶æ…‹: Player1=2, Player2=2
         Assert.Equal(2, board.GetPlayer1Count())
         Assert.Equal(2, board.GetPlayer2Count())
         
-        // Player1‚ª(2,4)‚É’u‚­iPlayer2‚Ì(3,4)‚ğƒtƒŠƒbƒvj
+        // Player1ãŒ(2,4)ã«ç½®ãï¼ˆPlayer2ã®(3,4)ã‚’ãƒ•ãƒªãƒƒãƒ—ï¼‰
         board.PlaceDisc(2, 4, DiscType.Player1)
         
         Assert.Equal(4, board.GetPlayer1Count())
         Assert.Equal(1, board.GetPlayer2Count())
 
     [<Fact>]
-    let ``•¡”•ûŒü‚ÌƒfƒBƒXƒNƒtƒŠƒbƒv‚ª³‚µ‚­“®ì‚·‚é`` () =
+    let ``è¤‡æ•°æ–¹å‘ã®ãƒ‡ã‚£ã‚¹ã‚¯ãƒ•ãƒªãƒƒãƒ—ãŒæ­£ã—ãå‹•ä½œã™ã‚‹`` () =
         let board = Board()
         
-        // ƒeƒXƒg‚Ì‚½‚ß‚É“Á’è‚Ìó‘Ô‚ğİ’è
+        // ãƒ†ã‚¹ãƒˆã®ãŸã‚ã«ç‰¹å®šã®çŠ¶æ…‹ã‚’è¨­å®š
         board.[2, 4] <- CellType.Player1
         board.[3, 3] <- CellType.Player1
         board.[3, 4] <- CellType.Player1
         board.[2, 5] <- CellType.Player2
         board.[3, 5] <- CellType.Player2
         
-        // Player2‚ª(2,3)‚É’u‚­i•¡”•ûŒü‚ÌƒtƒŠƒbƒvj
+        // Player2ãŒ(2,3)ã«ç½®ãï¼ˆè¤‡æ•°æ–¹å‘ã®ãƒ•ãƒªãƒƒãƒ—ï¼‰
         let initialP1Count = board.GetPlayer1Count()
         let initialP2Count = board.GetPlayer2Count()
         
         board.PlaceDisc(2, 3, DiscType.Player2)
         
-        // (3,3)‚É’u‚©‚êA(2,4)‚Æ(3,3)‚ªƒtƒŠƒbƒv‚³‚ê‚é
+        // (3,3)ã«ç½®ã‹ã‚Œã€(2,4)ã¨(3,3)ãŒãƒ•ãƒªãƒƒãƒ—ã•ã‚Œã‚‹
         Assert.Equal(CellType.Player2, board.[2, 3])
         Assert.Equal(CellType.Player2, board.[2, 4])
         Assert.Equal(CellType.Player2, board.[3, 3])

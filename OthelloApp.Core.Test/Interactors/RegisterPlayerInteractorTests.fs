@@ -11,7 +11,7 @@ open OthelloApp.Core.Models
 
 module RegisterPlayerInteractorTests =
 
-    // テスト用のモッククラス
+    // 繝�繧ｹ繝育畑縺ｮ繝｢繝�繧ｯ繧ｯ繝ｩ繧ｹ
     type MockRegisterPlayerPresenter() =
         member val CompleteCallCount = 0 with get, set
         member val LastOutputData : RegisterPlayerOutputData = null with get, set
@@ -39,7 +39,7 @@ module RegisterPlayerInteractorTests =
             member this.DeleteRoom(_) = ()
 
     [<Fact>]
-    let ``RegisterPlayerInteractor正常なケース`` () =
+    let ``RegisterPlayerInteractor豁｣蟶ｸ縺ｪ繧ｱ繝ｼ繧ｹ`` () =
         let mockPresenter = MockRegisterPlayerPresenter()
         let mockRepository = MockRoomStateRepository()
         
@@ -56,26 +56,26 @@ module RegisterPlayerInteractorTests =
         Assert.NotNull(mockPresenter.LastOutputData)
 
     [<Fact>]
-    let ``RegisterPlayerInteractorでnullプレゼンター例外`` () =
+    let ``RegisterPlayerInteractor縺ｧnull繝励Ξ繧ｼ繝ｳ繧ｿ繝ｼ萓句､冒` () =
         let mockRepository = MockRoomStateRepository()
         
         Assert.Throws<ArgumentNullException>(fun () -> 
             RegisterPlayerInteractor(null, mockRepository) |> ignore)
 
     [<Fact>]
-    let ``RegisterPlayerInteractorでnullリポジトリ例外`` () =
+    let ``RegisterPlayerInteractor縺ｧnull繝ｪ繝昴ず繝医Μ萓句､冒` () =
         let mockPresenter = MockRegisterPlayerPresenter()
         
         Assert.Throws<ArgumentNullException>(fun () -> 
             RegisterPlayerInteractor(mockPresenter, null) |> ignore)
 
     [<Fact>]
-    let ``RegisterPlayerInteractorで空のプレイヤー1名例外`` () =
+    let ``RegisterPlayerInteractor縺ｧ遨ｺ縺ｮ繝励Ξ繧､繝､繝ｼ1蜷堺ｾ句､冒` () =
         let mockPresenter = MockRegisterPlayerPresenter()
         let mockRepository = MockRoomStateRepository()
         
         let interactor = RegisterPlayerInteractor(mockPresenter, mockRepository)
-        let player1Name = ""  // 空の名前
+        let player1Name = ""  // 遨ｺ縺ｮ蜷榊燕
         let player2Name = "Player2"
         
         Assert.Throws<ArgumentException>(fun () -> 
@@ -83,13 +83,13 @@ module RegisterPlayerInteractorTests =
             interactor.Handle(input))
 
     [<Fact>]
-    let ``RegisterPlayerInteractorで空のプレイヤー2名例外`` () =
+    let ``RegisterPlayerInteractor縺ｧ遨ｺ縺ｮ繝励Ξ繧､繝､繝ｼ2蜷堺ｾ句､冒` () =
         let mockPresenter = MockRegisterPlayerPresenter()
         let mockRepository = MockRoomStateRepository()
         
         let interactor = RegisterPlayerInteractor(mockPresenter, mockRepository)
         let player1Name = "Player1"
-        let player2Name = ""  // 空の名前
+        let player2Name = ""  // 遨ｺ縺ｮ蜷榊燕
         
         Assert.Throws<ArgumentException>(fun () -> 
             let input = RegisterPlayerInputData(player1Name, player2Name)

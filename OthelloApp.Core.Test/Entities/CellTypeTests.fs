@@ -7,13 +7,13 @@ open OthelloApp.Core.Entities
 module CellTypeTests =
 
     [<Fact>]
-    let ``CellType列挙値の確認`` () =
+    let ``CellType蛻玲嫌蛟､縺ｮ遒ｺ隱港` () =
         Assert.Equal(0, int CellType.None)
         Assert.Equal(1, int CellType.Player1)
         Assert.Equal(2, int CellType.Player2)
 
     [<Fact>]
-    let ``CellType比較`` () =
+    let ``CellType豈碑ｼチ` () =
         Assert.True(CellType.None <> CellType.Player1)
         Assert.True(CellType.Player1 <> CellType.Player2)
         Assert.True(CellType.None = CellType.None)

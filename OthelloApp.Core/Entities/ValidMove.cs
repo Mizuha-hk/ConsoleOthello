@@ -11,7 +11,7 @@ public class ValidMove
         get => _row;
         set
         {
-            if (Row < 0 || Row >= Board.Size)
+            if (value < 0 || value >= Board.Size)
             {
                 throw new BoardOutOfRangeException();
             }
@@ -24,7 +24,7 @@ public class ValidMove
         get => _column;
         set
         {
-            if (Column < 0 || Column >= Board.Size)
+            if (value < 0 || value >= Board.Size)
             {
                 throw new BoardOutOfRangeException();
             }

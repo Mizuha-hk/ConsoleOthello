@@ -7,6 +7,8 @@ public class InGameViewModel
     public Guid RoomId { get; set; }
     public Board Board { get; set; }
     public Player TurnPlayer { get; set; }
+    public Player Player1 { get; set; }
+    public Player Player2 { get; set; }
     public ValidMoves ValidMoves { get; set; } 
     public bool PassedLastTurn { get; set; } = false;
     public bool IsGameOver { get; set; } = false;

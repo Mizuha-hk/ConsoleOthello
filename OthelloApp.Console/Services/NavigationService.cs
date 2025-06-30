@@ -7,37 +7,37 @@ namespace OthelloApp.ConsoleApp.Services;
 internal class NavigationService : INavigationService
 {
     private readonly IServiceProvider _services;
+    private ViewBase? _currentView;
     public NavigationService(IServiceProvider services)
     {
         _services = services ?? throw new ArgumentNullException(nameof(services), "サービスプロバイダーはnullであってはいけません。");
     }
     public void NavigateToInGameView(Guid roomId)
     {
-        var inGameView = _services.GetService<InGameView>();
-        if (inGameView == null)
-        {
-            throw new InvalidOperationException("InGameViewがサービスプロバイダーから取得できませんでした。");
-        }
+        DisposeCurrentView();
+
+        var inGameView = _services.GetRequiredService<InGameView>();
+        _currentView = inGameView;
         inGameView.Initialize(roomId);
     }
 
     public void NavigateToMainView()
     {
-        var mainView = _services.GetService<MainView>();
-        if (mainView == null)
-        {
-            throw new InvalidOperationException("MainViewがサービスプロバイダーから取得できませんでした。");
-        }
+        DisposeCurrentView();
+        var mainView = _services.GetRequiredService<MainView>();
         mainView.Initialize();
     }
 
     public void NavigateToRegisterPlayerView()
     {
-        var registerPlayerView = _services.GetService<RegisterPlayerView>();
-        if (registerPlayerView == null) 
-        {
-            throw new InvalidOperationException("RegisterPlayerViewがサービスプロバイダーから取得できませんでした。");
-        }
+        DisposeCurrentView();
+        var registerPlayerView = _services.GetRequiredService<RegisterPlayerView>();
         registerPlayerView.Initialize();
+    }
+
+    private void DisposeCurrentView()
+    {
+        _currentView?.Dispose();
+        _currentView = null;
     }
 }

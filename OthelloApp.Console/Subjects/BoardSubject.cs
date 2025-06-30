@@ -33,6 +33,8 @@ public class BoardSubject
             {
                 RoomId = value.RoomId,
                 TurnPlayer = value.TurnPlayer,
+                Player1 = value.Player1,
+                Player2 = value.Player2,
                 ValidMoves = value.ValidMoves,
                 IsGameOver = value.IsGameOver,
                 Board = value.Board,

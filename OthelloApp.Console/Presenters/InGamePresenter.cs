@@ -28,6 +28,8 @@ public class InGamePresenter : IInGamePresenter
         {
             RoomId = output.Room.Id,
             TurnPlayer = output.Room.IsPlayer1Turn ? output.Room.Player1 : output.Room.Player2,
+            Player1 = output.Room.Player1,
+            Player2 = output.Room.Player2,
             ValidMoves = output.Room.NextPlayerValidMoves,
             IsGameOver = output.Room.IsGameOver,
             PassedLastTurn = output.Room.PassedLastTurn,
@@ -47,6 +49,8 @@ public class InGamePresenter : IInGamePresenter
         {
             RoomId = output.Room.Id,
             TurnPlayer = output.Room.IsPlayer1Turn ? output.Room.Player1 : output.Room.Player2,
+            Player1 = output.Room.Player1,
+            Player2 = output.Room.Player2,
             ValidMoves = output.Room.NextPlayerValidMoves,
             PassedLastTurn = output.Room.PassedLastTurn,
             IsGameOver = output.Room.IsGameOver,

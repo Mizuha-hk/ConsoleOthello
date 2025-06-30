@@ -26,7 +26,11 @@ public class InGameView : ViewBase
     }
     public override void Dispose()
     {
-        _subject.OnMovePieceCompleted -= OnViewChanged;
+        if(_subject != null)
+        {
+            _subject.OnInitialized -= OnInitialized;
+            _subject.OnMovePieceCompleted -= OnViewChanged;
+        }
     }
 
     public void Initialize(Guid roomId)
@@ -62,6 +66,12 @@ public class InGameView : ViewBase
         }
         Console.Clear();
 
+        if (!viewModel.IsGameOver && viewModel.PassedLastTurn)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"{viewModel.TurnPlayer.Name} さんがパスされました。");
+        }
+
         ShowBoard(viewModel);
 
         if (viewModel.IsGameOver)
@@ -69,8 +79,8 @@ public class InGameView : ViewBase
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("ゲーム終了！");
             Console.WriteLine($"勝者: {viewModel.Winner?.Name ?? "ドロー"}");
-            Console.WriteLine($"プレイヤー1: {viewModel.Board.GetPlayer1Count()} コマ");
-            Console.WriteLine($"プレイヤー2: {viewModel.Board.GetPlayer2Count()} コマ");
+            Console.WriteLine($"{viewModel.Player1.Name}: {viewModel.Player1Count} コマ");
+            Console.WriteLine($"{viewModel.Player2.Name}: {viewModel.Player2Count} コマ");
             EndGame();
         }
         else
@@ -81,10 +91,6 @@ public class InGameView : ViewBase
 
     private void ShowBoard(InGameViewModel viewModel)
     {
-        var color = viewModel.ValidMoves.Player == DiscType.Player1
-            ? ConsoleColor.Black
-            : ConsoleColor.White;
-
         Console.Clear();
         Console.BackgroundColor = ConsoleColor.DarkGreen;
         Console.ForegroundColor = ConsoleColor.Black;
@@ -111,7 +117,7 @@ public class InGameView : ViewBase
                         break;
                     case CellType.None:
                         var isMoveAble 
-                            = viewModel.ValidMoves.MovableCells
+                            = viewModel.ValidMoves?.MovableCells
                                 .Find(c => c.Row == row && c.Column == col) != null;
 
                         if (isMoveAble)
@@ -137,23 +143,21 @@ public class InGameView : ViewBase
 
         }
         Console.ResetColor();
-        if (viewModel.PassedLastTurn)
+        Console.WriteLine();
+        if (!viewModel.IsGameOver)
         {
-            Console.WriteLine();
+            var color = viewModel.ValidMoves.Player == DiscType.Player1
+                ? ConsoleColor.Black
+                : ConsoleColor.White;
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Beep();
-            Console.WriteLine("パスされました．");
+            Console.Write($" {viewModel.TurnPlayer.Name}");
+            Console.ResetColor();
+            Console.Write($" さんのターン:");
+            Console.ForegroundColor = color;
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine(" ● ");
             Console.ResetColor();
         }
-        Console.WriteLine();
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.Write($" {viewModel.TurnPlayer.Name}");
-        Console.ResetColor();
-        Console.Write($" さんのターン:");
-        Console.ForegroundColor = color;
-        Console.BackgroundColor = ConsoleColor.DarkGreen;
-        Console.WriteLine(" ● ");
-        Console.ResetColor();
     }
 
     private void EndGame()

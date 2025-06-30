@@ -3,6 +3,7 @@ using OthelloApp.Core.Interfaces.Repositories;
 using OthelloApp.Core.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OthelloApp.Core.Repositories;
 
@@ -66,11 +67,10 @@ public class RoomStateRepository : IRoomStateRepository
         var opponentDiscType = discType == DiscType.Player1 ? DiscType.Player2 : DiscType.Player1;
 
         var oponentValidMoves = room.Board.AllValidMoves(opponentDiscType);
-        if (oponentValidMoves.MovableCells.Count == 0) {
-            room.IsPlayer1Turn = !room.IsPlayer1Turn; 
+        if (!oponentValidMoves.MovableCells.Any()) { 
 
             var currentPlayerValidMoves = room.Board.AllValidMoves(discType);
-            if (currentPlayerValidMoves.MovableCells.Count == 0)
+            if (!currentPlayerValidMoves.MovableCells.Any())
             {
                 room.IsGameOver = true;
                 if (room.Board.GetPlayer1Count() == room.Board.GetPlayer2Count())
@@ -89,6 +89,7 @@ public class RoomStateRepository : IRoomStateRepository
             }
             else
             {
+                room.PassedLastTurn = true;
                 room.NextPlayerValidMoves = currentPlayerValidMoves;
             }
         }

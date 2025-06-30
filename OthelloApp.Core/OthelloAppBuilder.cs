@@ -31,6 +31,7 @@ public class OthelloAppBuilder
     public OthelloAppBuilder AddMainView<T>() where T : class, IMainView
     {
         Services.AddTransient<IMainView, T>();
+        Services.AddTransient<T>();
         return this;
     }
 

@@ -32,7 +32,7 @@ public class MainView : ViewBase, IMainView
                     case Command.start:
                         Console.WriteLine("ローカル2人対戦を開始します。");
                         _navigationService.NavigateToRegisterPlayerView();
-                        break;
+                        return;
                     case Command.quit:
                         Console.WriteLine("ゲームを終了します。");
                         return;

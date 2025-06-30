@@ -1,0 +1,35 @@
+﻿        <Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <GenerateProgramFile>false</GenerateProgramFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Entities\BoardTests.fs" />
+    <Compile Include="Entities\CellTypeTests.fs" />
+    <Compile Include="Entities\DiscTypeTests.fs" />
+    <Compile Include="Entities\PlayerTests.fs" />
+    <Compile Include="Entities\ValidMovesTests.fs" />
+    <Compile Include="Entities\ValidMoveTests.fs" />
+    <Compile Include="Entities\Vector2Tests.fs" />
+    <Compile Include="Interactors\GetRoomInteractorTests.fs" />
+    <Compile Include="Interactors\MovePieceInteractorTests.fs" />
+    <Compile Include="Interactors\RegisterPlayerInteractorTests.fs" />
+    <Compile Include="Repositories\RoomStateRepositoryTests.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OthelloApp.Core\OthelloApp.Core.csproj" />
+  </ItemGroup>
+
+</Project>

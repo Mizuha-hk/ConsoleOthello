@@ -12,6 +12,10 @@ public class RegisterPlayerInputData
         {
             throw new ArgumentException("プレイヤー名は空であってはいけません。", nameof(player1Name));
         }
+        if (string.IsNullOrWhiteSpace(player2Name))
+        {
+            throw new ArgumentException("プレイヤー名は空であってはいけません。", nameof(player2Name));
+        }
 
         Player1Name = player1Name;
         Player2Name = player2Name;

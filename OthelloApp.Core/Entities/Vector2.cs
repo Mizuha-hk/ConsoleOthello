@@ -10,4 +10,13 @@ public class Vector2
         Row = row;
         Column = column;
     }
+
+    public override bool Equals(object obj)
+    {
+        if (obj is Vector2 other)
+        {
+            return Row == other.Row && Column == other.Column;
+        }
+        return false;
+    }
 }

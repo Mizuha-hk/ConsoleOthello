@@ -22,6 +22,7 @@ builder.AddPresenter<IInGamePresenter, InGamePresenter>();
 // Register View
 builder.AddMainView<MainView>();
 builder.AddView<RegisterPlayerView>();
+builder.AddView<CpuGameView>();
 builder.AddView<InGameView>();
 
 //Register Subject

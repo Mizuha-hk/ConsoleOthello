@@ -35,6 +35,13 @@ internal class NavigationService : INavigationService
         registerPlayerView.Initialize();
     }
 
+    public void NavigateToCpuGameView()
+    {
+        DisposeCurrentView();
+        var cpuGameView = _services.GetRequiredService<CpuGameView>();
+        cpuGameView.Initialize();
+    }
+
     private void DisposeCurrentView()
     {
         _currentView?.Dispose();

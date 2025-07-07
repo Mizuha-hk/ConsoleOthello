@@ -33,6 +33,10 @@ public class MainView : ViewBase, IMainView
                         Console.WriteLine("ローカル2人対戦を開始します。");
                         _navigationService.NavigateToRegisterPlayerView();
                         return;
+                    case Command.cpu:
+                        Console.WriteLine("CPU対戦を開始します。");
+                        _navigationService.NavigateToCpuGameView();
+                        return;
                     case Command.quit:
                         Console.WriteLine("ゲームを終了します。");
                         return;
@@ -71,6 +75,7 @@ public class MainView : ViewBase, IMainView
 
         Console.WriteLine("コマンドを入力してください");
         Console.WriteLine("start: ローカル2人対戦");
+        Console.WriteLine("cpu: CPU対戦");
         Console.WriteLine("quit: 終了");
         Console.Write("> ");
     }
@@ -96,6 +101,7 @@ public class MainView : ViewBase, IMainView
         return input.ToLower() switch
         {
             "start" => Command.start,
+            "cpu" => Command.cpu,
             "quit" => Command.quit,
             _ => throw new ArgumentException("無効なコマンドです。")
         };
@@ -104,6 +110,7 @@ public class MainView : ViewBase, IMainView
     private enum Command
     {
         start,
+        cpu,
         quit
     }
 }
